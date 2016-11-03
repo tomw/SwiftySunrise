@@ -31,7 +31,7 @@ let dateFormatter = DateFormatter()
 dateFormatter.timeZone = pacificTimeZone
 dateFormatter.dateFormat = "HH:mm"
     
-let timeInSanFrancisco = dateFormatter.string(from: sunriseInSanFrancisco)
+let timeInSanFrancisco = dateFormatter.string(from: sunriseInSanFrancisco) // "07:43"
 ```
 
 ## Twilight Types
