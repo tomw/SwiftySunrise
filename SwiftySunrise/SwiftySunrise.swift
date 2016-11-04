@@ -56,7 +56,7 @@ final public class SwiftySunrise {
         let n1 = floor(275 * Double(month) / 9)
         let n2 = floor(Double(month + 9) / 12)
         let n3 = 1 + floor((Double(year) - 4 * floor(Double(year) / 4) + 2) / 3)
-        let n = n1 - (n2 * n3) + Double(day) - 30
+        let dayOfYear = n1 - (n2 * n3) + Double(day) - 30
         
         //Convert longitude to hour value
         let lngHour = longitude / 15
@@ -64,26 +64,26 @@ final public class SwiftySunrise {
         let t: Double
         switch phase {
         case .sunrise:
-            t = n + ((6 - lngHour) / 24)
+            t = dayOfYear + ((6 - lngHour) / 24)
         case .sunset:
-            t = n + ((18 - lngHour) / 24)
+            t = dayOfYear + ((18 - lngHour) / 24)
         }
         
         //Sun's mean anomaly
-        let m = (0.9856 * t) - 3.289
+        let meanAnomaly = (0.9856 * t) - 3.289
         
         //Sun's true longitude
-        let l = fixRange(m + (1.916 * sin(degrees: m)) + (0.020 * sin(degrees: 2 * m)) + 282.634, max: 360)
+        let trueLongitude = fixRange(meanAnomaly + (1.916 * sin(degrees: meanAnomaly)) + (0.020 * sin(degrees: 2 * meanAnomaly)) + 282.634, max: 360)
         
         //Sun's right ascension
-        var ra = fixRange(atan(degrees: 0.91764 * tan(degrees: l)), max: 360)
-        let lQuadrant  = (floor(l / 90)) * 90
-        let raQquadrant = (floor(ra / 90)) * 90
-        ra += (lQuadrant - raQquadrant) //needs to be in same quandrant as l
-        ra /= 15 //convert to hours
+        var rightAscension = fixRange(atan(degrees: 0.91764 * tan(degrees: trueLongitude)), max: 360)
+        let lQuadrant  = (floor(trueLongitude / 90)) * 90
+        let raQquadrant = (floor(rightAscension / 90)) * 90
+        rightAscension += (lQuadrant - raQquadrant) //needs to be in same quandrant as l
+        rightAscension /= 15 //convert to hours
         
         //Sun's declination
-        let sinDec = 0.39782 * sin(degrees: l)
+        let sinDec = 0.39782 * sin(degrees: trueLongitude)
         let cosDec = cos(degrees: asin(degrees: sinDec))
         
         //Sun's local hour angle
@@ -99,16 +99,16 @@ final public class SwiftySunrise {
         }
         
         //Calculate hour
-        let h: Double
+        let hour: Double
         switch phase {
         case .sunrise:
-            h = (360 - acos(degrees: cosH)) / 15
+            hour = (360 - acos(degrees: cosH)) / 15
         case .sunset:
-            h = acos(degrees: cosH) / 15
+            hour = acos(degrees: cosH) / 15
         }
         
         //Local time of rising/setting
-        let localTime = h + ra - (0.06571 * t) - 6.622
+        let localTime = hour + rightAscension - (0.06571 * t) - 6.622
         
         let localTimeHourUTC = fixRange(localTime - lngHour, max: 24)
         
