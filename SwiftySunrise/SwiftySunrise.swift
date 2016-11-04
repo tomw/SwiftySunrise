@@ -132,7 +132,7 @@ final public class SwiftySunrise {
 //MARK:- Date extension
 public extension Date {
     
-    func toSunPhase(forPhase phase: SwiftySunrise.SunPhase, withTwilightType twilightType: SwiftySunrise.TwilightType = .official, atLatitude latitude: Double, andLongitude longitude: Double) -> Date? {
+    public func toSunPhase(forPhase phase: SwiftySunrise.SunPhase, withTwilightType twilightType: SwiftySunrise.TwilightType = .official, atLatitude latitude: Double, andLongitude longitude: Double) -> Date? {
         
         return SwiftySunrise.sunPhaseTime(forPhase: phase, withTwilightType: twilightType, onDay: self, atLatitude: latitude, andLongitude: longitude)
         
