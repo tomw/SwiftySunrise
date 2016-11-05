@@ -138,6 +138,17 @@ public extension Date {
         
     }
     
+    public init?(sunPhaseToday sunPhase: SwiftySunrise.SunPhase, withTwilightType twilightType: SwiftySunrise.TwilightType = .official, latitude: Double, longitude: Double) {
+        
+        if let sunPhaseDate = Date().toSunPhase(forPhase: sunPhase, withTwilightType: twilightType, atLatitude: latitude, andLongitude: longitude) {
+            self = sunPhaseDate
+        }
+        else {
+            return nil
+        }
+        
+    }
+    
 }
 
 //MARK:- Convenience functions

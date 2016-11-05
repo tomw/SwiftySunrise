@@ -290,4 +290,56 @@ class SwiftySunriseTests: XCTestCase {
         
     }
     
+    func testDateExtensionInitialiser() {
+        
+        let normalOutput = SwiftySunrise.sunPhaseTime(forPhase: .sunrise, withTwilightType: .official, onDay: Date(), atLatitude: 51.527383, andLongitude: -0.0881353)
+        let extensionOutput = Date(sunPhaseToday: .sunrise, latitude: 51.527383, longitude: -0.0881353)
+        
+        XCTAssertTrue(normalOutput != nil, "The sun should rise in London on this day")
+        XCTAssertTrue(extensionOutput != nil, "The sun should rise in London on this day")
+        
+        XCTAssertEqual(normalOutput, extensionOutput, "The two outputs should be equal")
+        
+    }
+    
+    func testTwilightTypes() {
+        
+        //Not an exhaustive test, but for now just checking they're in the correct order time wise
+        
+        let inputDate = Date(timeIntervalSince1970: 1478194901) //3rd Nov 2016
+        
+        let officialSunset = SwiftySunrise.sunPhaseTime(forPhase: .sunset, withTwilightType: .official, onDay: inputDate, atLatitude: 51.527383, andLongitude: -0.0881353)
+        let civilSunset = SwiftySunrise.sunPhaseTime(forPhase: .sunset, withTwilightType: .civil, onDay: inputDate, atLatitude: 51.527383, andLongitude: -0.0881353)
+        let nauticalSunset = SwiftySunrise.sunPhaseTime(forPhase: .sunset, withTwilightType: .nautical, onDay: inputDate, atLatitude: 51.527383, andLongitude: -0.0881353)
+        let astronomicalSunset = SwiftySunrise.sunPhaseTime(forPhase: .sunset, withTwilightType: .astronomical, onDay: inputDate, atLatitude: 51.527383, andLongitude: -0.0881353)
+        
+        XCTAssertNotNil(officialSunset)
+        XCTAssertNotNil(civilSunset)
+        XCTAssertNotNil(nauticalSunset)
+        XCTAssertNotNil(astronomicalSunset)
+        
+        XCTAssertGreaterThan(astronomicalSunset!.timeIntervalSince1970, nauticalSunset!.timeIntervalSince1970, "Astronomical sunset should be after nautical")
+        XCTAssertGreaterThan(nauticalSunset!.timeIntervalSince1970, civilSunset!.timeIntervalSince1970, "Nautical sunset should be after civil")
+        XCTAssertGreaterThan(civilSunset!.timeIntervalSince1970, officialSunset!.timeIntervalSince1970, "Civil sunset should be after official")
+        
+    }
+    
+    func testMidnightSun() {
+        
+        //No sunrise/sunset in Iceland at this time
+        let inputDate = Date(timeIntervalSince1970: 1466380800) //20th June 2016
+        
+        let icelandSunrise = SwiftySunrise.sunPhaseTime(forPhase: .sunrise, withTwilightType: .astronomical, onDay: inputDate, atLatitude: 64.9631, andLongitude: 19.0208)
+        XCTAssertNil(icelandSunrise, "The sun does not rise in Iceland on this date!")
+        
+        let icelandSunset = SwiftySunrise.sunPhaseTime(forPhase: .sunset, withTwilightType: .astronomical, onDay: inputDate, atLatitude: 64.9631, andLongitude: 19.0208)
+        XCTAssertNil(icelandSunset, "The sun does not set in Iceland on this date!")
+        
+        //But normally it does, just to make sure...
+        let inputDateB = Date(timeIntervalSince1970: 1478194901) //20th June 2016
+        let icelandSunriseB = SwiftySunrise.sunPhaseTime(forPhase: .sunrise, withTwilightType: .astronomical, onDay: inputDateB, atLatitude: 64.9631, andLongitude: 19.0208)
+        XCTAssertNotNil(icelandSunriseB, "The sun does not rise in Iceland on this date!")
+        
+    }
+    
 }
