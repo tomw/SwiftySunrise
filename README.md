@@ -11,11 +11,15 @@ let today = Date()
 let sunriseInLondon = SwiftySunrise.sunPhaseTime(forPhase: .sunrise, withTwilightType: .official, onDay: today, atLatitude: 51.527383, andLongitude: -0.0881353)
 ```
 
-For convenience, the Date extension can also be used:
+For convenience, the Date extension can be used:
 
 ```
 let today = Date()
 let sunriseInLondon = today.toSunPhase(forPhase: .sunrise, withTwilightType: .official, atLatitude: 51.527383, andLongitude: -0.0881353)
+```
+or for today, the failable initializer is another option:
+```
+let sunriseInLondon = Date(sunPhaseToday: .sunrise, latitude: 51.527383, longitude: -0.0881353)
 ```
 
 SwiftySunrise only uses the Foundation framework, making it cross platform compatible.
