@@ -339,6 +339,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = SwiftySunrise/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomweightman.SwiftySunrise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -360,6 +361,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = SwiftySunrise/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomweightman.SwiftySunrise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -413,6 +415,7 @@
 				E23CE9E61DCBA33600082750 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E23CE9E71DCBA33600082750 /* Build configuration list for PBXNativeTarget "SwiftySunriseTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +424,7 @@
 				E23CE9E91DCBA33600082750 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
