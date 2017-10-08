@@ -37,13 +37,13 @@ func tan(degrees: Double) -> Double {
 }
 
 func atan(degrees: Double) -> Double {
-    return atan(degrees) * (180.0 / M_PI)
+    return atan(degrees) * (180.0 / Double.pi)
 }
 
 func acos(degrees: Double) -> Double {
-    return acos(degrees) * (180.0 / M_PI)
+    return acos(degrees) * (180.0 / Double.pi)
 }
 
 func asin(degrees: Double) -> Double {
-    return asin(degrees) * (180.0 / M_PI)
+    return asin(degrees) * (180.0 / Double.pi)
 }
