@@ -1,6 +1,6 @@
 # SwiftySunrise
 
-A Swift 3 project for calculating sunrise and sunset times. 
+A Swift 4 project for calculating sunrise and sunset times. 
 
 ## Integration using CocoaPods
 
@@ -40,12 +40,12 @@ SwiftySunrise returns times in UTC. For display, times can be converted like in 
 
 ```swift
 guard let sunriseInSanFrancisco = Date().toSunPhase(forPhase: .sunrise, withTwilightType: .official, atLatitude: 37.7576171, andLongitude: -122.5776844) else { return }
-    
+
 guard let pacificTimeZone = TimeZone(identifier: "US/Pacific") else { return }
 let dateFormatter = DateFormatter()
 dateFormatter.timeZone = pacificTimeZone
 dateFormatter.dateFormat = "HH:mm"
-    
+
 let timeInSanFrancisco = dateFormatter.string(from: sunriseInSanFrancisco) // "07:43"
 ```
 
